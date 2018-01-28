@@ -24,7 +24,6 @@ public class Snake extends JPanel implements ActionListener {
 
     private static final Snake snake = new Snake();
 
-    private Integer delay;
     private Boolean isPaused = false;
     private Boolean isAlive = false;
     private Timer timer;
@@ -39,11 +38,11 @@ public class Snake extends JPanel implements ActionListener {
 
     }
 
-    public static Snake getInstance() {
+    static Snake getInstance() {
         return snake;
     }
 
-    public void createBoard() {
+    void createBoard() {
         frame = new JFrame("Typical Snake Game");
         snakeLocation = new ArrayList<>();
         snakeLocation.add(new Point(-100,-100));
@@ -71,8 +70,8 @@ public class Snake extends JPanel implements ActionListener {
     }
 
 
-    public void startGame() {
-        delay=100+(5-speed)*15;
+    private void startGame() {
+        Integer delay = 100 + (5 - speed) * 15;
         timer = new Timer(delay, this);
         if(frame==null){
             snake.createBoard();
@@ -95,27 +94,27 @@ public class Snake extends JPanel implements ActionListener {
 
 
 
-    public ArrayList<Point> getSnakeLocation() {
+    ArrayList<Point> getSnakeLocation() {
         return snakeLocation;
     }
 
-    public Point getFoodLocation() {
+    Point getFoodLocation() {
         return food;
     }
-    public Boolean getIsAlive() { return isAlive;}
+    Boolean getIsAlive() { return isAlive;}
 
-    public void setDirection(String dir) {
+    void setDirection(String dir) {
         snake.direction = dir;
     }
-    public String getDirection() {
+    String getDirection() {
         return snake.direction;
     }
 
-    public String getTmpDirection(){
+    String getTmpDirection(){
         return snake.tmpDirection;
     }
 
-    public void spacePressed(){
+    void spacePressed(){
 
         if(!isAlive) {
             snake.startGame();
@@ -125,19 +124,24 @@ public class Snake extends JPanel implements ActionListener {
         }
     }
 
-    public Boolean getPause(){
+    Boolean getPause(){
         return isPaused;
     }
 
-    public void move() {
-        if (direction.equals("RIGHT")) {
-            snakeLocation.add(0, new Point(snakeLocation.get(0).x + 10, snakeLocation.get(0).y + 0));
-        } else if (direction.equals("LEFT")) {
-            snakeLocation.add(0, new Point(snakeLocation.get(0).x - 10, snakeLocation.get(0).y + 0));
-        } else if (direction.equals("UP")) {
-            snakeLocation.add(0, new Point(snakeLocation.get(0).x, snakeLocation.get(0).y - 10));
-        } else if (direction.equals("DOWN")) {
-            snakeLocation.add(0, new Point(snakeLocation.get(0).x, snakeLocation.get(0).y + 10));
+    private void move() {
+        switch (direction) {
+            case "RIGHT":
+                snakeLocation.add(0, new Point(snakeLocation.get(0).x + 10, snakeLocation.get(0).y + 0));
+                break;
+            case "LEFT":
+                snakeLocation.add(0, new Point(snakeLocation.get(0).x - 10, snakeLocation.get(0).y + 0));
+                break;
+            case "UP":
+                snakeLocation.add(0, new Point(snakeLocation.get(0).x, snakeLocation.get(0).y - 10));
+                break;
+            case "DOWN":
+                snakeLocation.add(0, new Point(snakeLocation.get(0).x, snakeLocation.get(0).y + 10));
+                break;
         }
     }
 
@@ -160,7 +164,7 @@ public class Snake extends JPanel implements ActionListener {
 
     }
 
-    public void newFood() {
+    private void newFood() {
         Random random = new Random();
         Point point;
         point = new Point(random.nextInt(sizeWidth / scale) * scale + offsetWidth, random.nextInt(sizeHeight / scale) * scale + offsetHeight);
@@ -172,36 +176,35 @@ public class Snake extends JPanel implements ActionListener {
         food = point;
     }
 
-    public void increaseScore() {
+    private void increaseScore() {
         score=score+speed;
     }
-    public int getScore(){
+    int getScore(){
         return score;
     }
 
-    public void increaseSpeed(){
+    void increaseSpeed(){
         if(speed<10) {
             speed += 1;
         }
     }
 
-    public void decreaseSpeed(){
+    void decreaseSpeed(){
         if(speed>1) {
             speed -= 1;
         }
     }
 
-    public int getSpeed(){
+    int getSpeed(){
         return speed;
     }
 
-    public void refresh(){
-
+    void refresh(){
         board.repaint();
     }
 
 
-    public void checkPosition(){
+    private void checkPosition(){
         for (int j = 1; j < snakeLocation.size()-1; j++) {
             if (snakeLocation.get(0).equals(snakeLocation.get(j))) {
                 isAlive = false;

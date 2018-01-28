@@ -4,10 +4,10 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class ArrowAction extends AbstractAction {
-    Snake snake=Snake.getInstance();
+    private Snake snake=Snake.getInstance();
     private String cmd;
 
-    public ArrowAction(String cmd) {
+    ArrowAction(String cmd) {
         this.cmd = cmd;
     }
 

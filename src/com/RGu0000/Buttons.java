@@ -6,17 +6,17 @@ package com.RGu0000;
         import java.awt.event.ActionListener;
         import java.awt.event.KeyEvent;
 
-public class Buttons extends JPanel {
+class Buttons extends JPanel {
 
-    Snake snake=Snake.getInstance();
-    Board board=new Board();
-    JButton startGame;
-    JButton speedDown;
-    JButton speedUp;
+    private Snake snake=Snake.getInstance();
+    private JButton startGame;
+    private JButton speedDown;
+    private JButton speedUp;
 
-    public Buttons(){
+    Buttons(){
         JPanel buttonsPanel = new JPanel();
-        buttonsPanel.setPreferredSize(new Dimension(board.getSizeWidth()+board.getOffsetWidth(), 20));
+        Board board = new Board();
+        buttonsPanel.setPreferredSize(new Dimension(board.getSizeWidth()+ board.getOffsetWidth(), 20));
 
         startGame = new JButton("START!");
         startGame.setBackground(Color.red);
@@ -56,14 +56,14 @@ public class Buttons extends JPanel {
 
     }
 
-    public void blockButtons() {
+    void blockButtons() {
         startGame.setText("PAUSE");
         speedUp.setEnabled(false);
         speedDown.setEnabled(false);
 
     }
 
-    public void enableButtons() {
+    void enableButtons() {
         startGame.setText("START!");
         speedUp.setEnabled(true);
         speedDown.setEnabled(true);

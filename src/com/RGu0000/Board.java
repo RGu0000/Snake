@@ -12,14 +12,12 @@ public class Board extends JPanel {
     private int offsetWidth = 30;
     private int offsetHeight = 30;
     private int scale = 10;
-    Snake snake=Snake.getInstance();
+    private Snake snake=Snake.getInstance();
 
     public void paintComponent(Graphics g) {
 
-
         super.paintComponent(g);
 
-        //super.update(g);
         ArrayList<Point> points = Snake.getInstance().getSnakeLocation();
         g.setColor(Color.BLACK);
         g.fillRect(offsetWidth - scale, offsetHeight - scale, sizeWidth + 2 * scale, sizeHeight + 2 * scale);
@@ -46,7 +44,6 @@ public class Board extends JPanel {
 
         if (!snake.getIsAlive()) {
 
-
             font = new Font("Verdana", Font.BOLD, 12);
             g.setFont(font);
             String gameOver1 = "CHOOSE THE SPEED";
@@ -56,34 +53,30 @@ public class Board extends JPanel {
             g.setColor(Color.red);
             g.drawString(gameOver1, (offsetWidth * 2 + sizeWidth) / 2 - fm.stringWidth(gameOver1) / 2, (offsetHeight + sizeHeight) / 2);
             g.drawString(gameOver2, (offsetWidth * 2 + sizeWidth) / 2 - fm.stringWidth(gameOver2) / 2, (offsetHeight + sizeHeight + 40) / 2);
-            //String speed = "Game speed: " + snake.getSpeed();
-            //g.drawString(speed,(offsetWidth*2+sizeWidth)/2-fm.stringWidth(speed)/2,(offsetHeight+sizeHeight)/2+70);
+
         }
     }
 
 
-    public int getSizeWidth() {
+    int getSizeWidth() {
         return sizeWidth;
     }
 
-    public int getOffsetWidth() {
+    int getOffsetWidth() {
         return offsetWidth;
     }
 
-    public int getSizeHeight(){
+    int getSizeHeight(){
         return sizeHeight;
     }
 
-    public int getOffsetHeight() {
+    int getOffsetHeight() {
         return offsetHeight;
     }
 
-    public int getScale(){
+    int getScale(){
         return scale;
     }
-
-
-
 
 }
 
