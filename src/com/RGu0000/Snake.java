@@ -5,13 +5,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 
 public class Snake extends JPanel implements ActionListener {
-
-
     private int sizeWidth;
     private int sizeHeight;
     private int offsetWidth;
@@ -21,22 +18,17 @@ public class Snake extends JPanel implements ActionListener {
     private static Point food;
     private String direction = "RIGHT";
     private String tmpDirection = "RIGHT";
-
     private static final Snake snake = new Snake();
-
     private Boolean isPaused = false;
     private Boolean isAlive = false;
     private Timer timer;
     private Board board;
     private Buttons buttons;
     private JFrame frame;
-
     private Integer score=0;
     private int speed=5;
 
-    private Snake() {
-
-    }
+    private Snake() {}
 
     static Snake getInstance() {
         return snake;
@@ -53,12 +45,10 @@ public class Snake extends JPanel implements ActionListener {
         offsetHeight=board.getOffsetHeight();
         offsetWidth=board.getOffsetWidth();
         scale=board.getScale();
-
         buttons = new Buttons();
         frame.getContentPane().add(BorderLayout.CENTER, board);
         frame.getContentPane().add(BorderLayout.SOUTH, buttons);
         frame.setPreferredSize(new Dimension(sizeWidth + 2 * offsetWidth, sizeHeight + 2 * offsetHeight + 50));
-
         frame.setResizable(false);
         frame.setVisible(true);
         frame.pack();
@@ -66,7 +56,6 @@ public class Snake extends JPanel implements ActionListener {
         frame.setFocusable(true);
         frame.requestFocus();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
     }
 
 
@@ -85,14 +74,11 @@ public class Snake extends JPanel implements ActionListener {
         }
 
         newFood();
-
         buttons.blockButtons();
         isAlive = true;
         isPaused = false;
         timer.start();
     }
-
-
 
     ArrayList<Point> getSnakeLocation() {
         return snakeLocation;
@@ -150,18 +136,13 @@ public class Snake extends JPanel implements ActionListener {
         if(!isPaused && isAlive) {
             tmpDirection = direction;
             snake.move();
-
             snake.checkPosition();
-
-            //refresh();
             board.repaint();
 
         }  else if(!isAlive) {
             timer.stop();
             buttons.enableButtons();
         }
-
-
     }
 
     private void newFood() {
@@ -169,7 +150,7 @@ public class Snake extends JPanel implements ActionListener {
         Point point;
         point = new Point(random.nextInt(sizeWidth / scale) * scale + offsetWidth, random.nextInt(sizeHeight / scale) * scale + offsetHeight);
 
-        while (Arrays.asList(getSnakeLocation()).contains(point)) {
+        while (getSnakeLocation().contains(point)) {
             point = new Point(random.nextInt(sizeWidth / scale) * scale + offsetWidth, random.nextInt(sizeHeight / scale) * scale + offsetHeight);
         }
 
@@ -203,7 +184,6 @@ public class Snake extends JPanel implements ActionListener {
         board.repaint();
     }
 
-
     private void checkPosition(){
         for (int j = 1; j < snakeLocation.size()-1; j++) {
             if (snakeLocation.get(0).equals(snakeLocation.get(j))) {
@@ -211,11 +191,9 @@ public class Snake extends JPanel implements ActionListener {
             }
         }
 
-
         if (snakeLocation.get(0).x==offsetWidth-scale || snakeLocation.get(0).x==sizeWidth+offsetWidth ||snakeLocation.get(0).y==offsetHeight-scale || snakeLocation.get(0).y==sizeHeight+offsetHeight) {
             isAlive = false;
         }
-
 
         if (snakeLocation.get(0).equals(food)) {
             newFood();
